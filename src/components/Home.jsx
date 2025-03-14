@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Banner from './Banner';
 import GoogleMap from './GoogleMap';
+import { ContextProvider } from './AuthProviders/AuthProvider';
 
 export default function Home() {
   
@@ -37,19 +38,28 @@ export default function Home() {
     }
   ];
 
+
+  const {selectedBus} = useContext(ContextProvider);
+
   return (
 
     <>
 
     <Banner/>
     
-    <div className='min-h-screen flex flex-col items-center p-4 space-y-8'>
-      {buses.map((bus) => (
-        <div key={bus.busNumber} className="bg-gray-200 min-h-[60vh] max-w-[800px] p-5 py-12 rounded-lg shadow-lg">
-          <div className='grid grid-cols-3 gap-4 p-4'>
-            {bus.seats.map((seat) => (
-              <div key={seat.id} className={`card w-40 bg-gray-200 shadow-xl border-2 border-gray-400 
-                ${["A2", "B2", "C2", "D2", "E2"].includes(seat.seat_no) ? 'ml-8' : ''}`}
+    <div className='min-h-screen flex flex-col items-center p-4 space-y-8 '>
+
+    <div className='w-full text-center '>
+    <h1 className='text-3xl md:text-4xl lg:text-7xl text-gray-800'>Our System <br /> <span className='text-black font-bold'>Always Value</span><br /> <span className='text-blue-600 font-bold'>Our Respected Customers</span></h1><br />
+        
+    </div>
+    {selectedBus && selectedBus.seats ? (
+          <div className='grid grid-cols-3 gap-4 p-10 bg-white shadow-xl border-2 border-gray-400 rounded-xl bg-gray-300'>
+            {selectedBus.seats.map((seat) => (
+              <div 
+                key={seat.id} 
+                className={`card w-40 bg-white shadow-xl border-2 border-gray-400 
+                  ${["A2", "B2", "C2", "D2", "E2"].includes(seat.seat_no) ? 'ml-8' : ''}`}
               >
                 <button>
                   <div className="card-body">
@@ -58,14 +68,17 @@ export default function Home() {
                 </button>
               </div>
             ))}
+
+            {/* Display Bus Number */}
             <div className='col-span-3 mx-auto'>
               <p className='text-2xl font-bold border-2 border-gray-400 p-4'>
-                Bus Number {bus.busNumber}
+                Bus Number {selectedBus.busNumber}
               </p>
             </div>
           </div>
-        </div>
-      ))}
+        ) : (
+          <p className="text-lg text-gray-600 text-center">No Bus Selected</p>
+        )}
     </div>
 
     <GoogleMap/>
