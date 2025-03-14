@@ -96,8 +96,9 @@ const AuthProvider = ({ children }) => {
       });
     
       setbuses(updatedBuses);
-      navigate("/");
       Swal.fire("Seat Booked Sucessfully!");
+      navigate("/");
+      
       console.log(updatedBuses);
       console.log(buses);
     

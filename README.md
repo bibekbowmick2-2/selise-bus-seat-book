@@ -1,12 +1,57 @@
 # React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Selise Employee Bus Seat Booking App
 
-Currently, two official plugins are available:
+A modern and professional bus seat booking application designed for Selise employees. This app allows users to book seats on buses, view seat availability, and manage bookings through an admin panel.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- **User Interface**:
+  - View available buses and their seat layouts.
+  - Book seats by selecting a destination and time.
+  - See confirmation messages after booking.
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Admin Panel**:
+  - Select a bus to view its seat details.
+  - Manage seat bookings and availability.
+
+- **Dynamic Seat Management**:
+  - Seats are color-coded (white for available, grey for booked).
+  - Real-time updates when a seat is booked.
+
+- **Data Persistence**:
+  - Seat booking data is saved in `localStorage` for persistence across page reloads.
+
+## Technologies Used
+
+- **Frontend**:
+  - React JS
+  - Tailwind CSS
+
+- **State Management**:
+  - React Context API
+
+- **Routing**:
+  - React Router DOM
+
+## Installation
+
+Follow these steps to set up the project locally:
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/your-git
+   cd selise-bus-booking-app
+
+2. **Clone the repository**:
+   ```bash
+   npm install
+
+
+3. **Clone the repository**:
+   ```bash
+   npm run dev
+
+4. **Open APP**:
+   ```bash
+   http://localhost:5173/

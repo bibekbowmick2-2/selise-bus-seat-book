@@ -26,14 +26,14 @@ export default function Home() {
         
     </div>
     {selectedBus && selectedBus.seats ? (
-          <div className='grid grid-cols-3 gap-4 p-10 bg-white shadow-xl border-2 border-gray-400 rounded-xl bg-gray-300'>
+          <div className='grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3 gap-4 p-10 bg-white shadow-xl border-2 border-gray-400 rounded-xl bg-gray-300'>
             {selectedBus.seats.map((seat) => (
               <div 
                 key={seat.id} 
-                className={`card w-40  shadow-xl border-2 border-gray-400 
+                className={`card w-20 lg:w-40  shadow-xl border-2 border-gray-400 
                   ${["A2", "B2", "C2", "D2", "E2"].includes(seat.seat_no) ? 'ml-8' : ''}
                   ${
-                    seat.status == true ? "bg-gray-500 " : "bg-white"
+                    seat.status == true ? "bg-gray-500" : "bg-white"
                   }`}
               >
 
