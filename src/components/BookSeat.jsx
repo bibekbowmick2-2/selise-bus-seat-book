@@ -25,7 +25,7 @@ const handleFormSubmit=(e)=>{
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-400 ">
-      <div className="bg-white p-6  lg:p-12 rounded-2xl shadow-lg w-full max-w-md">
+      <div className="bg-white p-6 lg:p-12 rounded-2xl shadow-lg w-full max-w-md">
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Bus Booking Form</h2>
         <form onSubmit={handleFormSubmit} className="space-y-4">
           <div>

@@ -2,15 +2,32 @@ import React, { useContext } from 'react';
 import Banner from './Banner';
 import GoogleMap from './GoogleMap';
 import { ContextProvider } from './AuthProviders/AuthProvider';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 
 export default function Home() {
   
- 
+ const navigate= useNavigate();
 
 
   const {selectedBus} = useContext(ContextProvider);
+  const handleSeatClick = (seat) => {
+    if (seat.status===true) {
+      
+      Swal.fire({
+        icon: 'info',
+        title: 'Ticket Booked Already',
+        text: 'This seat has already been booked.',
+      });
+    } else {
+      
+      navigate(`/bookseat/${seat.seat_no}/${selectedBus.busNumber}`);
+    }
+  };
+
+  
+ 
   console.log(selectedBus);
 
   return (
@@ -37,13 +54,15 @@ export default function Home() {
                   }`}
               >
 
-              <Link to={`/bookseat/${seat.seat_no}/${selectedBus.busNumber}`}>
-              <button disabled={seat.status}>
+                <button
+                  onClick={() => handleSeatClick(seat)}
+               
+                  className="w-full h-full"
+                >
                   <div className="card-body">
                     <h2 className="card-title">{seat.seat_no}</h2>
                   </div>
                 </button>
-              </Link>
                 
               </div>
             ))}
