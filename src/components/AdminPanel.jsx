@@ -41,13 +41,17 @@ export default function AdminPanel() {
       </div>
 
 
+
+      <button onClick={()=>handleBusSelection(selectedBus,navigate)}>
       <div tabIndex={0} className="collapse collapse-close bg-cyan-300 border-base-300 border w-[450px]">
       <div className="collapse-title font-semibold">
-       <button onClick={()=>handleBusSelection(selectedBus,navigate)}>  {selectedBus ? `Selected Bus: ${selectedBus}` : "No Bus Selected"}</button>
+        {selectedBus ? `Selected Bus: ${selectedBus}` : "No Bus Selected"}
         
         </div>
+        
   
 </div>
+</button>
 
 
 

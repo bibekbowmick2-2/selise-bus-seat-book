@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 
@@ -10,40 +10,48 @@ const AuthProvider = ({ children }) => {
 
   const [selectedBus, setSelectedBus] = useState([]);
   // const navigate = useNavigate();
+  let updatedSelectedBus;
  
-  const buses = [
+  const [buses,setbuses] = useState([
     {
       busNumber: "S098",
       seats: [
-        { id: 1, seat_no: "A1" }, { id: 2, seat_no: "A2" }, { id: 3, seat_no: "A3" },
-        { id: 4, seat_no: "B1" }, { id: 5, seat_no: "B2" }, { id: 6, seat_no: "B3" },
-        { id: 7, seat_no: "C1" }, { id: 8, seat_no: "C2" }, { id: 9, seat_no: "C3" },
-        { id: 10, seat_no: "D1" }, { id: 11, seat_no: "D2" }, { id: 12, seat_no: "D3" },
-        { id: 13, seat_no: "E1" }, { id: 14, seat_no: "E2" }, { id: 15, seat_no: "E3" }
+        { id: 1, seat_no: "A1",status: false }, { id: 2, seat_no: "A2",status: false }, { id: 3, seat_no: "A3",status: false },
+        { id: 4, seat_no: "B1",status: false }, { id: 5, seat_no: "B2",status: false }, { id: 6, seat_no: "B3",status: false },
+        { id: 7, seat_no: "C1",status: false }, { id: 8, seat_no: "C2",status: false }, { id: 9, seat_no: "C3",status: false },
+        { id: 10, seat_no: "D1",status: false }, { id: 11, seat_no: "D2",status: false }, { id: 12, seat_no: "D3",status: false },
+        { id: 13, seat_no: "E1",status: false }, { id: 14, seat_no: "E2",status: false }, { id: 15, seat_no: "E3",status: false }
       ]
     },
     {
       busNumber: "S099",
       seats: [
-        { id: 1, seat_no: "A1" }, { id: 2, seat_no: "A2" }, { id: 3, seat_no: "A3" },
-        { id: 4, seat_no: "B1" }, { id: 5, seat_no: "B2" }, { id: 6, seat_no: "B3" },
-        { id: 7, seat_no: "C1" }, { id: 8, seat_no: "C2" }, { id: 9, seat_no: "C3" },
-        { id: 10, seat_no: "D1" }, { id: 11, seat_no: "D2" }, { id: 12, seat_no: "D3" },
-        { id: 13, seat_no: "E1" }, { id: 14, seat_no: "E2" }, { id: 15, seat_no: "E3" }
+        { id: 1, seat_no: "A1",status: false }, { id: 2, seat_no: "A2",status: false }, { id: 3, seat_no: "A3",status: false },
+        { id: 4, seat_no: "B1",status: false }, { id: 5, seat_no: "B2",status: false }, { id: 6, seat_no: "B3",status: false },
+        { id: 7, seat_no: "C1",status: false }, { id: 8, seat_no: "C2",status: false }, { id: 9, seat_no: "C3",status: false },
+        { id: 10, seat_no: "D1",status: false }, { id: 11, seat_no: "D2",status: false }, { id: 12, seat_no: "D3",status: false },
+        { id: 13, seat_no: "E1",status: false }, { id: 14, seat_no: "E2",status: false }, { id: 15, seat_no: "E3",status: false }
       ]
     },
     {
       busNumber: "S100",
       seats: [
-        { id: 1, seat_no: "A1" }, { id: 2, seat_no: "A2" }, { id: 3, seat_no: "A3" },
-        { id: 4, seat_no: "B1" }, { id: 5, seat_no: "B2" }, { id: 6, seat_no: "B3" },
-        { id: 7, seat_no: "C1" }, { id: 8, seat_no: "C2" }, { id: 9, seat_no: "C3" },
-        { id: 10, seat_no: "D1" }, { id: 11, seat_no: "D2" }, { id: 12, seat_no: "D3" },
-        { id: 13, seat_no: "E1" }, { id: 14, seat_no: "E2" }, { id: 15, seat_no: "E3" }
+        { id: 1, seat_no: "A1",status: false }, { id: 2, seat_no: "A2",status: false }, { id: 3, seat_no: "A3",status: false },
+        { id: 4, seat_no: "B1",status: false }, { id: 5, seat_no: "B2",status: false }, { id: 6, seat_no: "B3",status: false},
+        { id: 7, seat_no: "C1",status: false }, { id: 8, seat_no: "C2",status: false }, { id: 9, seat_no: "C3",status: false },
+        { id: 10, seat_no: "D1",status: false }, { id: 11, seat_no: "D2",status: false }, { id: 12, seat_no: "D3",status: false },
+        { id: 13, seat_no: "E1",status: false }, { id: 14, seat_no: "E2",status: false }, { id: 15, seat_no: "E3",status: false }
       ]
     }
-  ];
+  ]
+  )
 
+
+  useEffect(() => {
+    if (selectedBus) {
+      console.log("selectedBus is now updated:", selectedBus);
+    }
+  }, [selectedBus]);
 
 
   const handleBusSelection = (busNumber,navigate) => {
@@ -52,6 +60,58 @@ const AuthProvider = ({ children }) => {
     setSelectedBus(filteredBus);
     navigate("/");
   };
+
+
+  
+    const handleSubmit = (e) => {
+      e.preventDefault();
+    
+      const busNo = e.target.busNo.value;
+      const seatNo = e.target.seatNo.value;
+    
+      // Update buses state immutably
+      const updatedBuses = buses.map((bus) => {
+        if (bus.busNumber === busNo) {
+          // Update the seat's status
+          const updatedSeats = bus.seats.map((seat) => {
+            if (seat.seat_no === seatNo) {
+              alert("Seat Booked Successfully");
+              return { ...seat, status: true };
+            }
+            return seat;
+          });
+    
+          return { ...bus,  seats: updatedSeats  };
+        }
+        
+       
+       
+        return bus;
+      });
+    
+      setbuses(updatedBuses);
+      console.log(updatedBuses);
+      console.log(buses);
+    
+      
+       updatedSelectedBus = updatedBuses.find((bus) => bus.busNumber === busNo);
+    
+      console.log(updatedSelectedBus);
+   
+    
+      setSelectedBus(updatedSelectedBus);
+    
+      console.log(selectedBus);
+      
+    };
+    
+    
+    
+  
+
+
+   
+  
   
 
 
@@ -60,7 +120,9 @@ const AuthProvider = ({ children }) => {
       value={{
         buses,
         handleBusSelection,
-        selectedBus
+        selectedBus,
+        handleSubmit,
+        
        
         
       

@@ -5,6 +5,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Root from "../components/Root";
 import Home from "../components/Home";
 import AdminPanel from "../components/AdminPanel";
+import BookSeat from "../components/BookSeat";
 
 
 const router = createBrowserRouter([
@@ -23,6 +24,13 @@ const router = createBrowserRouter([
         path: "/admin",
         element: <AdminPanel />,
       },
+
+      {
+        path: "/bookseat/:seat_no/:busNumber",
+        element: <BookSeat />,
+        
+      },
+
 
 
     //   {

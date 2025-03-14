@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link, NavLink } from 'react-router-dom'
+import img from '../assets/images.jpeg'
 
 export default function Navbar() {
   return (
@@ -18,7 +19,7 @@ export default function Navbar() {
       
         </ul>
       </div>
-      <a className="btn btn-ghost text-xl">daisyUI</a>
+      <img src={img} alt="" className='w-[60px] h-[60px] rounded-full'/>
     </div>
     <div className="navbar-center hidden lg:flex">
       <ul className="menu menu-horizontal px-1">
@@ -27,7 +28,7 @@ export default function Navbar() {
       </ul>
     </div>
     <div className="navbar-end">
-      <a className="btn">Button</a>
+      <a className="btn">Bibek Bhowmick</a>
     </div>
   </div>
   )
