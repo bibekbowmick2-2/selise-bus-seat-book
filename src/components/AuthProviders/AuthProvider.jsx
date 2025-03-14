@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2'
 
 
 
@@ -8,7 +8,11 @@ export const ContextProvider = createContext();
 
 const AuthProvider = ({ children }) => {
 
-  const [selectedBus, setSelectedBus] = useState([]);
+  const [selectedBus, setSelectedBus] = useState(() => {
+    
+    const savedSelectedBus = localStorage.getItem("selectedBus");
+    return savedSelectedBus ? JSON.parse(savedSelectedBus) : null;
+  });
   // const navigate = useNavigate();
   let updatedSelectedBus;
  
@@ -49,7 +53,7 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     if (selectedBus) {
-      console.log("selectedBus is now updated:", selectedBus);
+      localStorage.setItem("selectedBus", JSON.stringify(selectedBus));
     }
   }, [selectedBus]);
 
@@ -63,33 +67,37 @@ const AuthProvider = ({ children }) => {
 
 
   
-    const handleSubmit = (e) => {
+    const handleSubmit = (e,navigate) => {
       e.preventDefault();
     
       const busNo = e.target.busNo.value;
       const seatNo = e.target.seatNo.value;
     
-      // Update buses state immutably
+    
       const updatedBuses = buses.map((bus) => {
         if (bus.busNumber === busNo) {
-          // Update the seat's status
+          
           const updatedSeats = bus.seats.map((seat) => {
             if (seat.seat_no === seatNo) {
-              alert("Seat Booked Successfully");
+             
               return { ...seat, status: true };
             }
             return seat;
           });
     
           return { ...bus,  seats: updatedSeats  };
+         
         }
         
        
-       
+        
         return bus;
+
       });
     
       setbuses(updatedBuses);
+      navigate("/");
+      Swal.fire("Seat Booked Sucessfully!");
       console.log(updatedBuses);
       console.log(buses);
     

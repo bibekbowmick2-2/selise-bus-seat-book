@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { ContextProvider } from "./AuthProviders/AuthProvider";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const BookSeat = () => {
 
@@ -10,8 +10,16 @@ const BookSeat = () => {
 
   const {handleSubmit} = useContext(ContextProvider);
   const { seat_no,busNumber } = useParams();
+  const navigate = useNavigate();
 console.log(seat_no);
   
+
+const handleFormSubmit=(e)=>{
+  e.preventDefault();
+
+  handleSubmit(e,navigate);
+
+}
 
   
 
@@ -19,7 +27,7 @@ console.log(seat_no);
     <div className="flex items-center justify-center min-h-screen bg-gray-400">
       <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md">
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Bus Booking Form</h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleFormSubmit} className="space-y-4">
           <div>
             <label className="block text-gray-700">Name</label>
             <input
